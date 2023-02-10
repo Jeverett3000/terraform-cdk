@@ -11,7 +11,7 @@ from imports.local import LocalProvider, File
 
 
 def writeToFile(scope: Construct, name: str, value):
-    filename = "../../../{}".format(name)
+    filename = f"../../../{name}"
     if isinstance(value, list):
         File(scope, name, filename=filename, content=Fn.jsonencode(value))
     else:
@@ -43,14 +43,14 @@ class ConsumerStack(TerraformStack):
         RandomProvider(self, "random")
         LocalProvider(self, "local")
 
-        self.numericResource = inputs.get("numericResource", None)
-        self.numericValue = inputs.get("numericValue", None)
+        self.numericResource = inputs.get("numericResource")
+        self.numericValue = inputs.get("numericValue")
 
-        self.stringResource = inputs.get("stringResource", None)
-        self.stringValue = inputs.get("stringValue", None)
+        self.stringResource = inputs.get("stringResource")
+        self.stringValue = inputs.get("stringValue")
 
-        self.listResource = inputs.get("listResource", None)
-        self.listValue = inputs.get("listValue", None)
+        self.listResource = inputs.get("listResource")
+        self.listValue = inputs.get("listValue")
 
         numericValue = (
             inputs["numericResource"].result
@@ -58,7 +58,7 @@ class ConsumerStack(TerraformStack):
             else inputs.get("numericValue", None)
         )
         if numericValue:
-            writeToFile(self, "{}Num".format(ns), numericValue)
+            writeToFile(self, f"{ns}Num", numericValue)
 
         stringValue = (
             inputs["stringResource"].result
@@ -66,7 +66,7 @@ class ConsumerStack(TerraformStack):
             else inputs.get("stringValue", None)
         )
         if stringValue:
-            writeToFile(self, "{}Str".format(ns), stringValue)
+            writeToFile(self, f"{ns}Str", stringValue)
 
         listValue = (
             inputs["listResource"].result
@@ -74,7 +74,7 @@ class ConsumerStack(TerraformStack):
             else inputs.get("listValue", None)
         )
         if listValue:
-            writeToFile(self, "{}List".format(ns), listValue)
+            writeToFile(self, f"{ns}List", listValue)
 
 
 app = Testing.stub_version(App(stack_traces=False))
