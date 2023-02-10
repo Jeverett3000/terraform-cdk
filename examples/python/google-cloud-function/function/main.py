@@ -17,7 +17,7 @@ def main(request):
     elif request_json and 'data' in request_json:
         data = request_json['data']
     else:
-        return f'Invalid request!'
+        return 'Invalid request!'
     x1, x2, x3 = data[0], data[1], data[2]
     prediction = add(x1, x2, x3)
     return {"sum": prediction}

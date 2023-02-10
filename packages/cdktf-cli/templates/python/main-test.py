@@ -7,7 +7,7 @@ from cdktf import Testing
 class TestMain:
 
     def test_my_app(self):
-        assert True
+        pass
 
     #stack = TerraformStack(Testing.app(), "stack")
     #app_abstraction = MyApplicationsAbstraction(stack, "app-abstraction")
